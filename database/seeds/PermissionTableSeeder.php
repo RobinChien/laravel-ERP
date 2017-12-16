@@ -14,22 +14,22 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions=[
                 [
-                    'name' => 'roles-list',
+                    'name' => 'role-list',
                     'display_name' => 'Display Role Listing',
                     'description' => 'See only Listing Of Role'
                 ],
                 [
-                    'name' => 'roles-create',
+                    'name' => 'role-create',
                     'display_name' => 'Create Role',
                     'description' => 'Create New Role'
                 ],
                 [
-                    'name' => 'roles-edit',
+                    'name' => 'role-edit',
                     'display_name' => 'Edit Role',
                     'description' => 'Edit Role'
                 ],
                 [
-                    'name' => 'roles-delete',
+                    'name' => 'role-delete',
                     'display_name' => 'Delete Role',
                     'description' => 'Delete Role'
                 ]

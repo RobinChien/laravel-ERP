@@ -48,7 +48,7 @@ class UserController extends Controller
         ]);
 
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $input['password'] = bcrypt($input['password']);
 
         $user = User::create($input);
         foreach ($request->input('roles') as $key => $value) {

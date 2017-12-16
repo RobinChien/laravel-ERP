@@ -88,7 +88,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         $permission = Permission::get();
         $rolePermissions = DB::table("permission_role")->where("permission_role.role_id",$id)
-            ->lists('permission_role.permission_id','permission_role.permission_id');
+            ->pluck('permission_role.permission_id','permission_role.permission_id')->toArray();
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
