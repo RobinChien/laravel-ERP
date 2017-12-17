@@ -3,9 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Zizaco\Entrust\EntrustPermission;
 
-class PermissionRole extends EntrustPermission
+class PermissionRole extends Model
 {
     public $timestamps = false;
     protected $table = 'permission_role';

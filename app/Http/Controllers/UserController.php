@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        $data = User::orderBy('user_id','DESC')->paginate(5);
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -40,15 +40,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+
+        $request->validate([
+            'user_name' => 'required|string|max:150',
+            'user_email' => 'required|string|email|max:150|unique:users',
+            'user_birth' => 'required|date',
+            'user_addr' => 'required|string|max:150',
+            'user_phone' => 'required|string|max:10',
+            'user_status' => 'sometimes',
+            'roles' => 'required',
         ]);
 
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        $input['password'] = bcrypt($input['user_phone']);
+
+        if (!isset($request['user_status'])){
+            $input['user_status'] = '0';
+        }
 
         $user = User::create($input);
         foreach ($request->input('roles') as $key => $value) {
@@ -82,7 +90,6 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('display_name','id')->all();
         $userRole = $user->roles->pluck('id','id')->toArray();
-
         return view('users.edit',compact('user','roles','userRole'));
     }
 
@@ -95,20 +102,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+
+        $request->validate([
+            'user_name' => 'required|string|max:150',
+            'user_email' => 'required|string|email|max:150|unique:users,user_id,'.$id.',user_email',
+            'user_birth' => 'required|date',
+            'user_addr' => 'required|string|max:150',
+            'user_phone' => 'required|string|max:10',
+            'roles' => 'required',
         ]);
 
         $input = $request->all();
 
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = array_except($input,array('password'));
-        }
+//        if(!empty($input['password'])){
+//            $input['password'] = Hash::make($input['password']);
+//        }else{
+//            $input = array_except($input,array('password'));
+//        }
 
         $user = User::find($id);
         $user->update($input);

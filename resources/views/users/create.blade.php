@@ -27,25 +27,39 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                {!! Form::text('user_name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Birthday:</strong>
+                {!! Form::date('user_birth', null, array('placeholder' => 'Birth','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
-                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+                {!! Form::text('user_email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Password:</strong>
-                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+                <strong>Address:</strong>
+                {!! Form::text('user_addr', null, array('placeholder' => 'Address','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Confirm Password:</strong>
-                {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+                <strong>Phone:</strong>
+                {!! Form::text('user_phone', null, array('placeholder' => 'Phone','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                    <strong>開通帳號:</strong>
+                    <label>
+                        {!! Form::checkbox('user_status') !!}
+                    </label>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

@@ -27,7 +27,7 @@ class EntrustSetupTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
 
-            $table->foreign('user_id')->references('id')->on('users')
+            $table->foreign('user_id')->references('user_id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onUpdate('cascade')->onDelete('cascade');
@@ -39,6 +39,7 @@ class EntrustSetupTables extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->string('parent_id')->nullable();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
