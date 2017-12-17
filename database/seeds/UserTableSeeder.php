@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
-use Carbon\Carbon;
+use App\Role;
 
 class UserTableSeeder extends Seeder
 {
@@ -13,20 +13,13 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $user=[
-          [
-              'user_name' => 'super',
-              'user_email' =>'super@gmail.com',
-              'password' => Hash::make('123456'),
-              'user_addr' =>'test',
-              'user_phone' =>'0912345678',
-              'user_status' =>1,
-              'user_birth' =>Carbon::parse('2000-01-01'),
-          ]
-        ];
+        $role_admin = Role::where('name', 'admin')->first();
+        $super = new User();
+        $super->name = 'super';
+        $super->email = 'abc@gmail.com';
+        $super->password = bcrypt('123456');
+        $super->save();
+        $super->roles()->attach($role_admin);
 
-        foreach ($user as $key => $value){
-            User::create($value);
-        }
     }
 }
