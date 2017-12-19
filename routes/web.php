@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function (){
 
     Route::resource('users','UserController');
     Route::resource('roles', 'RoleController');
+    Route::resource('company', 'CompanyController');
 //    Route::get('/admin',[
 //        'as' => 'admin.index',
 //        'uses' =>function(){
