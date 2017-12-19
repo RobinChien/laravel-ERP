@@ -99,7 +99,7 @@ class CompanyController extends Controller
         $company->update($input);
 
         return redirect()->route('company.index')
-            ->with('success','User updated successfully');
+            ->with('success','Company updated successfully');
     }
 
     /**
