@@ -41,6 +41,7 @@
                         <li><a href="{{ route('roles.index') }}">Roles</a></li>
                         <li><a href="{{ route('company.index') }}">Company</a></li>
                         <li><a href="{{ route('customer.index') }}">Customer</a></li>
+                        <li><a href="{{ route('manufacturer.index') }}">Manufacturer</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

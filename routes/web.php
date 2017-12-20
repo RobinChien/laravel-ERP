@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth']], function (){
     Route::resource('roles', 'RoleController');
     Route::resource('company', 'CompanyController');
     Route::resource('customer', 'CustomerController');
+    Route::resource('manufacturer', 'ManufacturerController');
+
 //    Route::get('/admin',[
 //        'as' => 'admin.index',
 //        'uses' =>function(){
