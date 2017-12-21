@@ -42,9 +42,11 @@
                 <strong>Permission:</strong>
                 <br/>
                 @foreach($permission as $value)
+                    @if($value->status != 0)
                     <label>{{Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
                         {{ $value->display_name }}</label>
                     <br/>
+                    @endif
                 @endforeach
             </div>
         </div>

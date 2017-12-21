@@ -42,6 +42,8 @@ class EntrustSetupTables extends Migration
             $table->string('parent_id')->nullable();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->integer('status')->nullable();
+            $table->string('route')->nullable();
             $table->timestamps();
         });
 

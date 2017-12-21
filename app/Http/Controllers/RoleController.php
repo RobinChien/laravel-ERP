@@ -28,7 +28,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = Permission::get();
+        $permission = Permission::where('parent_id','<>','#')->get();
         return view('roles.create',compact('permission'));
     }
 
@@ -72,6 +72,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         $rolePermissions = Permission::join("permission_role","permission_role.permission_id","=","permissions.id")
             ->where("permission_role.role_id",$id)
+            ->where('parent_id','<>','#')
             ->get();
 
         return view('roles.show',compact('role','rolePermissions'));
@@ -86,8 +87,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("permission_role")->where("permission_role.role_id",$id)
+        $permission = Permission::where('parent_id','<>','#')->get();
+        $rolePermissions = DB::table("permission_role")
+            ->where("permission_role.role_id",$id)
             ->pluck('permission_role.permission_id','permission_role.permission_id')->toArray();
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }

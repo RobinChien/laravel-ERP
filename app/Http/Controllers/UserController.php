@@ -57,7 +57,6 @@ class UserController extends Controller
         if (!isset($request['user_status'])){
             $input['user_status'] = '0';
         }
-
         $user = User::create($input);
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
@@ -144,4 +143,16 @@ class UserController extends Controller
             ->with('success','User deleted successfully');
     }
 
+    public function status($status, $id)
+    {
+        $user = User::find($id);
+        if(empty($user))
+        {
+            return redirect()->route('users.index')->with('success','狀態更新失敗');
+        }
+        $user->update(['user_status'=>$status]);
+
+        return redirect()->route('users.index')
+            ->with('success','狀態更新成功');
+    }
 }
