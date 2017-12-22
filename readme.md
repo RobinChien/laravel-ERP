@@ -7,26 +7,26 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-##Laravle-ERP
+## Laravle-ERP
 Base on Laravel 5.5
 
-###STEP 1. Git Clone
+### STEP 1. Git Clone
 > git clone https://github.com/RobinJian/laravel-ERP
 
-###STEP 2. Get Into laravel-ERP
+### STEP 2. Get Into laravel-ERP
 >cd laravel-ERP
 
-###STEP 3. Rebuild /vendor Direction
+### STEP 3. Rebuild /vendor Direction
 >composer install
 
-###STEP 4. Rebuild /node_modules  Direction
+### STEP 4. Rebuild /node_modules  Direction
 >npm install
 
-###STEP 5. Rebuild .env
+### STEP 5. Rebuild .env
 >cp .env.example .env
 
-###STEP 6. Create APP_KEY
+### STEP 6. Create APP_KEY
 >php artisan key:generate
 
-###STEP 6. Rebuild Database and Seeder
+### STEP 7. Rebuild Database and Seeder
 >php artisan migrate:refresh --seed
