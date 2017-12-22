@@ -28,45 +28,45 @@
         </tr>
         @foreach ($permissions as $key => $permission)
             @if($permission->parent_id == '#')
-            <tr class="bg-danger">
-                <td>{{ $permission->treeitem }}</td>
-                <td>{{ $permission->description }}</td>
-                <td class="text-center">
-                {{--@if($permission->status == 1)--}}
-                    {{--<span class="text-navy">顯示</span>--}}
-                {{--@else--}}
-                    {{--<span class="text-dnager">不顯示</span>--}}
-                {{--@endif--}}
-                </td>
-                <td>
-                    {{--<a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>--}}
-                    {{--@permission('permission-edit')--}}
-                    {{--<a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>--}}
-                    {{--@endpermission--}}
-                    {{--@permission('permission-status')--}}
-                    {{--@if($permission->status == 0)--}}
-                    {{--<a class="btn btn-success" href="{{ route('permissions.status',[$permission->status,$permission->id]) }}">啟用</a>--}}
-                    {{--@else--}}
+                <tr class="bg-danger">
+                    <td>{{ $permission->treeitem }}</td>
+                    <td>{{ $permission->description }}</td>
+                    <td class="text-center">
+                        {{--@if($permission->status == 1)--}}
+                        {{--<span class="text-navy">顯示</span>--}}
+                        {{--@else--}}
+                        {{--<span class="text-dnager">不顯示</span>--}}
+                        {{--@endif--}}
+                    </td>
+                    <td>
+                        {{--<a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>--}}
+                        {{--@permission('permission-edit')--}}
+                        {{--<a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>--}}
+                        {{--@endpermission--}}
+                        {{--@permission('permission-status')--}}
+                        {{--@if($permission->status == 0)--}}
+                        {{--<a class="btn btn-success" href="{{ route('permissions.status',[$permission->status,$permission->id]) }}">啟用</a>--}}
+                        {{--@else--}}
                         {{--<a class="btn btn-danger" href="{{ route('permissions.status',[$permission->status,$permission->id]) }}">禁用</a>--}}
-                    {{--@endif--}}
-                    {{--@endpermission--}}
-                    {{--@permission('permission-delete')--}}
-                    {{--{!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}--}}
-                    {{--{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
-                    {{--{!! Form::close() !!}--}}
-                    {{--@endpermission--}}
-                </td>
-            </tr>
+                        {{--@endif--}}
+                        {{--@endpermission--}}
+                        {{--@permission('permission-delete')--}}
+                        {{--{!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}--}}
+                        {{--{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
+                        {{--{!! Form::close() !!}--}}
+                        {{--@endpermission--}}
+                    </td>
+                </tr>
             @else
                 <tr>
                     <td>{{ $permission->treeitem }}</td>
                     <td>{{ $permission->description }}</td>
                     <td class="text-center">
-                    @if($permission->status == 1)
-                        <span class="text-navy">顯示</span>
-                    @else
-                        <span class="text-dnager">不顯示</span>
-                    @endif
+                        @if($permission->status == 1)
+                            <span class="text-navy">顯示</span>
+                        @else
+                            <span class="text-dnager">不顯示</span>
+                        @endif
                     </td>
                     <td>
                         <a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>
@@ -75,9 +75,11 @@
                         @endpermission
                         @permission('permission-status')
                         @if($permission->status == 0)
-                            <a class="btn btn-success" href="{{ route('permissions.status',[1,$permission->id]) }}">啟用</a>
+                            <a class="btn btn-success"
+                               href="{{ route('permissions.status',[1,$permission->id]) }}">啟用</a>
                         @else
-                            <a class="btn btn-warning" href="{{ route('permissions.status',[0,$permission->id]) }}">禁用</a>
+                            <a class="btn btn-warning"
+                               href="{{ route('permissions.status',[0,$permission->id]) }}">禁用</a>
                         @endif
                         @endpermission
                         {{--@permission('permission-delete')--}}
@@ -90,5 +92,5 @@
             @endif
         @endforeach
     </table>
-{{--    {!! $permissions->render() !!}--}}
+    {{--    {!! $permissions->render() !!}--}}
 @endsection

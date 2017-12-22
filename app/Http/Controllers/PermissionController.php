@@ -16,7 +16,7 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         $permissions = $this->permissions_tree();
-        return view('permissions.index',compact('permissions'));
+        return view('permissions.index', compact('permissions'));
     }
 
     /**
@@ -32,7 +32,7 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,32 +43,32 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Permission  $permission
+     * @param  \App\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $permissions = Permission::find($id);
-        return view('permissions.show',compact('permissions'));
+        return view('permissions.show', compact('permissions'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Permission  $permission
+     * @param  \App\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $permissions = Permission::find($id);
-        return view('permissions.edit',compact('permissions'));
+        return view('permissions.edit', compact('permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Permission  $permission
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,13 +90,13 @@ class PermissionController extends Controller
         $permissions->update($input);
 
         return redirect()->route('permissions.index')
-            ->with('success','Permission updated successfully');
+            ->with('success', 'Permission updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Permission  $permission
+     * @param  \App\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function destroy(Permission $permission)
@@ -108,18 +108,17 @@ class PermissionController extends Controller
     {
         $permission = Permission::find($id);
 
-        if(empty($permission))
-        {
-            return redirect()->route('permissions.index')->with('success','狀態更新失敗');
+        if (empty($permission)) {
+            return redirect()->route('permissions.index')->with('success', '狀態更新失敗');
         }
-        $permission->update(['status'=>$status]);
+        $permission->update(['status' => $status]);
 
-        if(!empty(DB::table("permission_role")->where("permission_role.permission_id",$id))){
-            DB::table("permission_role")->where("permission_role.permission_id",$id)->delete();
+        if (!empty(DB::table("permission_role")->where("permission_role.permission_id", $id))) {
+            DB::table("permission_role")->where("permission_role.permission_id", $id)->delete();
         }
 
         return redirect()->route('permissions.index')
-            ->with('success','狀態更新成功');
+            ->with('success', '狀態更新成功');
     }
 
     public function permissions_tree()

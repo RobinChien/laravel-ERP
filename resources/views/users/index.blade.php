@@ -44,9 +44,9 @@
                 </td>
                 <td class="text-center">
                     @if($user->user_status == 1)
-                    <span class="text-navy">顯示</span>
+                        <span class="text-navy">顯示</span>
                     @else
-                    <span class="text-dnager">不顯示</span>
+                        <span class="text-dnager">不顯示</span>
                     @endif
                 </td>
                 <td>
@@ -54,9 +54,9 @@
                     <a class="btn btn-primary" href="{{ route('users.edit',$user->user_id) }}">Edit</a>
                     @permission('user-status')
                     @if($user->user_status == 0)
-                    <a class="btn btn-success" href="{{ route('users.status',[1,$user->user_id]) }}">啟用</a>
+                        <a class="btn btn-success" href="{{ route('users.status',[1,$user->user_id]) }}">啟用</a>
                     @else
-                    <a class="btn btn-warning" href="{{ route('users.status',[0,$user->user_id]) }}">禁用</a>
+                        <a class="btn btn-warning" href="{{ route('users.status',[0,$user->user_id]) }}">禁用</a>
                     @endif
                     @endpermission
                     {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->user_id],'style'=>'display:inline']) !!}

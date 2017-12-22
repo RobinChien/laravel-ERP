@@ -16,8 +16,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('user_id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+        $data = User::orderBy('user_id', 'DESC')->paginate(5);
+        return view('users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -28,14 +28,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('display_name','id')->all();
-        return view('users.create',compact('roles'));
+        $roles = Role::pluck('display_name', 'id')->all();
+        return view('users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,7 +54,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['user_phone']);
 
-        if (!isset($request['user_status'])){
+        if (!isset($request['user_status'])) {
             $input['user_status'] = '0';
         }
         $user = User::create($input);
@@ -63,40 +63,40 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')
-            ->with('success','User created successfully');
+            ->with('success', 'User created successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        return view('users.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('display_name','id')->all();
-        $userRole = $user->roles->pluck('id','id')->toArray();
-        return view('users.edit',compact('user','roles','userRole'));
+        $roles = Role::pluck('display_name', 'id')->all();
+        $userRole = $user->roles->pluck('id', 'id')->toArray();
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -104,7 +104,7 @@ class UserController extends Controller
 
         $request->validate([
             'user_name' => 'required|string|max:150',
-            'user_email' => 'required|string|email|max:150|unique:users,user_id,'.$id.',user_email',
+            'user_email' => 'required|string|email|max:150|unique:users,user_id,' . $id . ',user_email',
             'user_birth' => 'required|date',
             'user_addr' => 'required|string|max:150',
             'user_phone' => 'required|string|max:10',
@@ -121,38 +121,37 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('role_user')->where('user_id',$id)->delete();
+        DB::table('role_user')->where('user_id', $id)->delete();
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
         }
 
         return redirect()->route('users.index')
-            ->with('success','User updated successfully');
+            ->with('success', 'User updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-            ->with('success','User deleted successfully');
+            ->with('success', 'User deleted successfully');
     }
 
     public function status($status, $id)
     {
         $user = User::find($id);
-        if(empty($user))
-        {
-            return redirect()->route('users.index')->with('success','狀態更新失敗');
+        if (empty($user)) {
+            return redirect()->route('users.index')->with('success', '狀態更新失敗');
         }
-        $user->update(['user_status'=>$status]);
+        $user->update(['user_status' => $status]);
 
         return redirect()->route('users.index')
-            ->with('success','狀態更新成功');
+            ->with('success', '狀態更新成功');
     }
 }
