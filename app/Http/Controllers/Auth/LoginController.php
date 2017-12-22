@@ -51,4 +51,5 @@ class LoginController extends Controller
             'user_status' => 1,
         ];
     }
+
 }

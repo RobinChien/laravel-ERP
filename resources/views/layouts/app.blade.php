@@ -40,27 +40,22 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-            </div>
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li><a href="{{ route('users.index') }}">Users</a></li>
+                        <li><a href="{{ route('roles.index') }}">Roles</a></li>
+                        <li><a href="{{ route('company.index') }}">Company</a></li>
+                        <li><a href="{{ route('customer.index') }}">Customer</a></li>
+                        <li><a href="{{ route('manufacturer.index') }}">Manufacturer</a></li>
+                    </ul>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                    <li><a href="{{ route('users.index') }}">Users</a></li>
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                    <li><a href="{{ route('permissions.index') }}">Permissions</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li><a href="{{ route('login') }}">Login</a></li>
                         @else
                             {{--<div id="wrapper">--}}
                             {{--@include('vendor.flash.message')--}}
@@ -68,8 +63,7 @@
                             {{--@include('common._wrapper')--}}
                             {{--</div>--}}
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-expanded="false" aria-haspopup="true">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->user_name }} <span class="caret"></span>
                                 </a>
 

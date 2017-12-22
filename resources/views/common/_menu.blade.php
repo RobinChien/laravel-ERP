@@ -29,37 +29,38 @@
 
             @foreach($details->menu_parent as $key => $rule)
                 {{--@if($rule->parent_id == '#')--}}
-                    <li class="dropdown">
-                        <a title="{{$rule->pluck('name')[0]}}" target="_blank">
-                            {{--<i class="fa fa-{{$rule['fonts']}}"></i>--}}
-                            <span class="nav-label">{{$rule->pluck('display_name')[0]}}</span>
-                        </a>
-{{--                        @if(isset($rule['children']))--}}
-                            <ul class="nav nav-second-level collapse ">
-                                @foreach($details->menu_child as $k=>$item)
-                                    @if($item->pluck('parent_id')[0] == $rule->pluck('id')[0])
-                                        <li>
-                                            <a class="J_menuItem" href="{{ route($item->pluck('route')[0]) }}" data-index="{{$item->pluck('id')[0]}}">{{$item->pluck('display_name')[0]}}</a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        {{--@endif--}}
-                    <li>
+                <li class="dropdown">
+                    <a title="{{$rule->pluck('name')[0]}}" target="_blank">
+                        {{--<i class="fa fa-{{$rule['fonts']}}"></i>--}}
+                        <span class="nav-label">{{$rule->pluck('display_name')[0]}}</span>
+                    </a>
+                    {{--                        @if(isset($rule['children']))--}}
+                    <ul class="nav nav-second-level collapse ">
+                        @foreach($details->menu_child as $k=>$item)
+                            @if($item->pluck('parent_id')[0] == $rule->pluck('id')[0])
+                                <li>
+                                    <a class="J_menuItem" href="{{ route($item->pluck('route')[0]) }}"
+                                       data-index="{{$item->pluck('id')[0]}}">{{$item->pluck('display_name')[0]}}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                {{--@endif--}}
+                <li>
                 {{--@else--}}
-                    {{--<li>--}}
-                        {{--<a title="{{$rule->pluck('name')[0]}}">--}}
-                            {{--<span class="nav-label">{{$rule->pluck('display_name')[0]}}</span>--}}
-                            {{--<span class="fa arrow"></span>--}}
-                        {{--</a>--}}
-                            {{--<ul class="nav nav-second-level collapse">--}}
-                                {{--@foreach($details->menu_child as $k=>$item)--}}
-                                    {{--@if($item->pluck('parent_id')[0] == $rule->pluck('id')[0])--}}
-                                        {{--<li><a class="J_menuItem" href="{{ route($item->pluck('route')[0]) }}" data-index="index_v1.html">{{$item->pluck('display_name')[0]}}</a></li>--}}
-                                    {{--@endif--}}
-                                {{--@endforeach--}}
-                            {{--</ul>--}}
-                    {{--</li>--}}
+                {{--<li>--}}
+                {{--<a title="{{$rule->pluck('name')[0]}}">--}}
+                {{--<span class="nav-label">{{$rule->pluck('display_name')[0]}}</span>--}}
+                {{--<span class="fa arrow"></span>--}}
+                {{--</a>--}}
+                {{--<ul class="nav nav-second-level collapse">--}}
+                {{--@foreach($details->menu_child as $k=>$item)--}}
+                {{--@if($item->pluck('parent_id')[0] == $rule->pluck('id')[0])--}}
+                {{--<li><a class="J_menuItem" href="{{ route($item->pluck('route')[0]) }}" data-index="index_v1.html">{{$item->pluck('display_name')[0]}}</a></li>--}}
+                {{--@endif--}}
+                {{--@endforeach--}}
+                {{--</ul>--}}
+                {{--</li>--}}
                 {{--@endif--}}
                 {{--<li>--}}
             @endforeach

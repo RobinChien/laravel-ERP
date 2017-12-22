@@ -27,11 +27,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', 'RoleController');
     Route::resource('permissions', 'PermissionController');
     Route::get('permissions/status/{status}/{id}', 'PermissionController@status')->name('permissions.status');
-//    Route::get('/admin',[
-//        'as' => 'admin.index',
-//        'uses' =>function(){
-//            return view('admin.index');
-//        }
-//    ]);
+    Route::resource('company', 'CompanyController');
+    Route::resource('customer', 'CustomerController');
+    Route::resource('manufacturer', 'ManufacturerController');
+
 });
 
