@@ -46,6 +46,7 @@
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ route('users.index') }}">Users</a></li>
                         <li><a href="{{ route('roles.index') }}">Roles</a></li>
+                        <li><a href="{{ route('permissions.index') }}">Permissions</a></li>
                         <li><a href="{{ route('company.index') }}">Company</a></li>
                         <li><a href="{{ route('customer.index') }}">Customer</a></li>
                         <li><a href="{{ route('manufacturer.index') }}">Manufacturer</a></li>
