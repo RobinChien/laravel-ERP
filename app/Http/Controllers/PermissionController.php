@@ -79,13 +79,6 @@ class PermissionController extends Controller
         ]);
 
         $input = $request->all();
-
-//        if(!empty($input['password'])){
-//            $input['password'] = Hash::make($input['password']);
-//        }else{
-//            $input = array_except($input,array('password'));
-//        }
-
         $permissions = Permission::find($id);
         $permissions->update($input);
 

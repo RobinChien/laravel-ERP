@@ -1,5 +1,6 @@
 <?php
 
+use App\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['middleware' => ['auth']], function () {
-
     Route::resource('users', 'UserController');
     Route::get('users/status/{status}/{id}', 'UserController@status')->name('users.status');
     Route::resource('roles', 'RoleController');
@@ -30,6 +30,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('company', 'CompanyController');
     Route::resource('customer', 'CustomerController');
     Route::resource('manufacturer', 'ManufacturerController');
-
 });
 

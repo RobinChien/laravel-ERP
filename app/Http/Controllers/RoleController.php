@@ -28,7 +28,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = Permission::where('parent_id', '<>', '#')->get();
+
+        $permission = Permission::with(implode('.', array_fill(0, 4, 'children')))
+            ->where('parent_id', '=', '#')->get();
+//        dd($permission);
         return view('roles.create', compact('permission'));
     }
 
@@ -87,7 +90,8 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permission = Permission::where('parent_id', '<>', '#')->get();
+        $permission = Permission::with(implode('.', array_fill(0, 4, 'children')))
+            ->where('parent_id', '=', '#')->get();
         $rolePermissions = DB::table("permission_role")
             ->where("permission_role.role_id", $id)
             ->pluck('permission_role.permission_id', 'permission_role.permission_id')->toArray();

@@ -44,13 +44,37 @@
             <div class="form-group">
                 <strong>Permission:</strong>
                 <br/>
-                @foreach($permission as $value)
-                    @if($value->status != 0)
-                        <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-                            {{ $value->display_name }}</label>
-                        <br/>
-                    @endif
-                @endforeach
+                <table>
+                    @foreach($permission as $value)
+                        @if($value->status != 0)
+                            <tr>
+                                <th>
+                                    <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
+                                        {{ $value->display_name }}</label>
+                                </th>
+                                <td>
+                                    @foreach($value->children as $subvalue)
+                                        <table>
+                                            <tr>
+                                                <th>
+                                                    <label>{{ Form::checkbox('permission[]', $subvalue->id, false, array('class' => 'name')) }}
+                                                        {{ $subvalue->display_name }}</label>
+                                                </th>
+                                                <td>
+                                                    @foreach($subvalue->children as $basevalue)
+                                                        <label>{{ Form::checkbox('permission[]', $basevalue->id, false, array('class' => 'name')) }}
+                                                            {{ $basevalue->display_name }}</label>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    @endforeach
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </table>
+
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
