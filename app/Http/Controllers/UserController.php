@@ -154,4 +154,28 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success', '狀態更新成功');
     }
+
+    public function edit_profile($id)
+    {
+        $user = User::find($id);
+        return view('users.edit_profile', compact('user'));
+    }
+
+    public function update_profile(Request $request)
+    {
+
+        $request->validate([
+            'user_name' => 'required|string|max:150',
+            'user_addr' => 'required|string|max:150',
+            'user_phone' => 'required|string|max:10',
+        ]);
+
+        $input = $request->all();
+
+        $user = User::find($request->user_id);
+        $user->update($input);
+
+        return redirect()->route('home')
+            ->with('success', 'Profile updated successfully');
+    }
 }

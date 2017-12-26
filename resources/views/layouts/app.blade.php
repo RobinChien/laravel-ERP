@@ -82,11 +82,6 @@
                                 @guest
                                     <li><a href="{{ route('login') }}">Login</a></li>
                                     @else
-                                        {{--<div id="wrapper">--}}
-                                        {{--@include('vendor.flash.message')--}}
-                                        {{--                            @include('common._menu')--}}
-                                        {{--@include('common._wrapper')--}}
-                                        {{--</div>--}}
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                aria-expanded="false" aria-haspopup="true">
@@ -95,12 +90,14 @@
 
                                             <ul class="dropdown-menu">
                                                 <li>
+                                                    <a href="{{ route('users.edit_profile',Auth::user()->user_id) }}">
+                                                        更新個人資料
+                                                    </a>
                                                     <a href="{{ route('logout') }}"
                                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                         Logout
                                                     </a>
-
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                           style="display: none;">
                                                         {{ csrf_field() }}
@@ -115,7 +112,9 @@
     </nav>
 </div>
 @yield('content')
+
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
 @yield('js')
 
 {{--<script>--}}
@@ -124,6 +123,6 @@
 {{--})--}}
 {{--$('div.alert').not('.alert-important').delay(3000).fadeOut(350);--}}
 {{--</script>--}}
-{{--@yield('footer-js')--}}
+@yield('footer-js')
 </body>
 </html>
