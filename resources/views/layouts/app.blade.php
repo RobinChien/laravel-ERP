@@ -48,23 +48,24 @@
                                 <li><a href="{{ url('/home') }}">Home</a></li>
 
                                 @foreach($menus->parent_menus as $parent_menu)
-                                    @if($menus->sub_menus->count()>0)
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                 {{$parent_menu->display_name}}
                                                 <b class="caret"></b>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                @foreach($menus->sub_menus as $submenu)
-                                                    @if($submenu->parent_id == $parent_menu->id)
+                                                @foreach($menus->sub_menus as $key => $submenu)
+                                                    @foreach($submenu as $subs)
+                                                        @if($subs->parent_id == $parent_menu->id)
                                                         <li>
-                                                            <a href="{{route($submenu->route)}}">{{$submenu->display_name}}</a>
+                                                            <a href="{{route($subs->route)}}">{{$subs->display_name}}</a>
                                                         </li>
-                                                    @endif
+                                                        @endif
+                                                    @endforeach
+
                                                 @endforeach
                                             </ul>
                                         </li>
-                                    @endif
                                 @endforeach
 
                                 {{--<li><a href="{{ route('users.index') }}">Users</a></li>--}}

@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Menu
 {
-    protected $roles;
-    protected $perms;
+
     public $parent_menus;
     public $sub_menus;
 
@@ -20,7 +19,9 @@ class Menu
         $this->parent_menus = Permission::with(implode('.', array_fill(0, 4, 'children')))
             ->where('parent_id', '=', '#')
             ->whereIn('id',$perms->pluck('id'))->get();
-        $this->sub_menus = $this->parent_menus[0]->children->wherein('id',$perms->pluck('id'));
+        for($i=0; $i<count($this->parent_menus); $i++){
+            $this->sub_menus[$i] = $this->parent_menus[$i]->children->wherein('id',$perms->pluck('id'));
+        }
 //        dd($this);
     }
 }

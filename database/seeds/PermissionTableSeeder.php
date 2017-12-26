@@ -13,7 +13,7 @@ class PermissionTableSeeder extends Seeder
 
     /*
      * s01:user->9, role->10, permission->11
-     * s02:companyinfo->12, employeeinfo->13, clientinfo->14, vendorinfo->15, productcategory->16, productinfo->17
+     * s02:company->12, employee->13, customer->14, manufacturer->15, productcategory->16, productinfo->17
      * */
     public function run()
     {
@@ -109,36 +109,36 @@ class PermissionTableSeeder extends Seeder
                 'route'=>'permissions.index'
             ],
             [
-                'name' => 'companyinfo-index',
+                'name' => 'company-index',
                 'parent_id' => '2',
                 'display_name' => '公司資料',
                 'description' => '#',
                 'status' => '1',
-                'route'=>'companyinfos.index'
+                'route'=>'company.index'
             ],
             [
-                'name' => 'employeeinfo-index',
+                'name' => 'employee-index',
                 'parent_id' => '2',
                 'display_name' => '員工資料',
                 'description' => '#',
                 'status' => '1',
-                'route'=>'employeeinfos.index'
+                'route'=>'employee.index'
             ],
             [
-                'name' => 'clientinfo-index',
+                'name' => 'customer-index',
                 'parent_id' => '2',
                 'display_name' => '客戶資料',
                 'description' => '#',
                 'status' => '1',
-                'route'=>'clientinfos.index'
+                'route'=>'customer.index'
             ],
             [
-                'name' => 'vendorinfo-index',
+                'name' => 'manufacturer-index',
                 'parent_id' => '2',
                 'display_name' => '廠商資料',
                 'description' => '#',
                 'status' => '1',
-                'route'=>'vendorinfos.index'
+                'route'=>'manufacturer.index'
             ],
             [
                 'name' => 'productcategory-index',
@@ -254,12 +254,20 @@ class PermissionTableSeeder extends Seeder
                 'route'=>'permissions.status'
             ],
             [
-                'name' => 'companyinfo-edit',
+                'name' => 'company-show',
+                'parent_id' => '12',
+                'display_name' => '公司資料內容',
+                'description' => '公司資料內容',
+                'status' => '1',
+                'route'=>'company.show'
+            ],
+            [
+                'name' => 'company-edit',
                 'parent_id' => '12',
                 'display_name' => '公司資料修改',
                 'description' => '公司資料修改',
                 'status' => '1',
-                'route'=>'companyinfos.edit'
+                'route'=>'company.edit'
             ],
             [
                 'name' => 'employee-show',
@@ -270,52 +278,76 @@ class PermissionTableSeeder extends Seeder
                 'route'=>'employees.show'
             ],
             [
-                'name' => 'employeeinfo-edit',
+                'name' => 'employee-edit',
                 'parent_id' => '13',
                 'display_name' => '員工資料修改',
                 'description' => '員工資料修改',
                 'status' => '1',
-                'route'=>'employeeinfos.edit'
+                'route'=>'employee.edit'
             ],
             [
-                'name' => 'clientinfos-show',
+                'name' => 'customer-show',
                 'parent_id' => '14',
                 'display_name' => '客戶資料',
                 'description' => '顯示客戶資料',
                 'status' => '1',
-                'route'=>'clientinfos.show'
+                'route'=>'customer.show'
             ],
             [
-                'name' => 'clientinfo-create',
+                'name' => 'customer-create',
                 'parent_id' => '14',
                 'display_name' => '客戶資料新增',
                 'description' => '客戶資料新增',
                 'status' => '1',
-                'route'=>'clientinfos.create'
+                'route'=>'customer.create'
             ],
             [
-                'name' => 'clientinfo-edit',
+                'name' => 'customer-edit',
                 'parent_id' => '14',
                 'display_name' => '客戶資料修改',
                 'description' => '客戶資料修改',
                 'status' => '1',
-                'route'=>'clientinfos.edit'
+                'route'=>'customer.edit'
             ],
             [
-                'name' => 'clientinfo-status',
+                'name' => 'customer-status',
                 'parent_id' => '14',
-                'display_name' => '客戶資料狀態',
-                'description' => '客戶資料啟用|禁用',
+                'display_name' => '客戶狀態',
+                'description' => '客戶啟用|禁用',
                 'status' => '1',
-                'route'=>'clientinfos.status'
+                'route'=>'customer.status'
             ],
             [
-                'name' => 'clientinfo-delete',
-                'parent_id' => '14',
-                'display_name' => '客戶資料刪除',
-                'description' => '客戶資料刪除',
+                'name' => 'manufacturer-show',
+                'parent_id' => '15',
+                'display_name' => '廠商資料',
+                'description' => '廠商資料顯示',
                 'status' => '1',
-                'route'=>'clientinfos.destroy'
+                'route'=>'manufacturer.create'
+            ],
+            [
+                'name' => 'manufacturer-create',
+                'parent_id' => '15',
+                'display_name' => '廠商資料新增',
+                'description' => '廠商資料新增',
+                'status' => '1',
+                'route'=>'manufacturer.create'
+            ],
+            [
+                'name' => 'manufacturer-edit',
+                'parent_id' => '15',
+                'display_name' => '廠商資料修改',
+                'description' => '廠商資料修改',
+                'status' => '1',
+                'route'=>'manufacturer.edit'
+            ],
+            [
+                'name' => 'manufacturer-status',
+                'parent_id' => '15',
+                'display_name' => '廠商狀態',
+                'description' => '廠商啟用|禁用',
+                'status' => '1',
+                'route'=>'manufacturer.status'
             ]
         ];
 
