@@ -16,6 +16,7 @@ class Role extends EntrustRole
     {
         return $this->belongsToMany(Permission::class);
     }
+
     protected $fillable = [
         'name', 'display_name', 'description',
     ];

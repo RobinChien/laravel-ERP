@@ -114,11 +114,14 @@ class PermissionController extends Controller
             ->with('success', '狀態更新成功');
     }
 
+    /**
+     * @return mixed
+     */
     public function permissions_tree()
     {
         $sql = "SELECT  CONCAT(REPEAT(' ｜', level - 1), display_name) AS treeitem, ho.id, parent_id, description, status, route, level
                 FROM    (
-                        SELECT  hierarchy_connect_by_parent_eq_prior_id(id) AS id, @level AS level
+                        SELECT  permissions_connect_by_parent_eq_prior_id(id) AS id, @level AS level
                         FROM    (
                                 SELECT  @start_with := 0,
                                         @id := @start_with,

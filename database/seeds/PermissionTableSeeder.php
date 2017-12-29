@@ -13,7 +13,7 @@ class PermissionTableSeeder extends Seeder
 
     /*
      * s01:user->9, role->10, permission->11
-     * s02:company->12, employee->13, customer->14, manufacturer->15, productcategory->16, productinfo->17
+     * s02:company->12, employee->13, customer->14, manufacturer->15, product_categories->16, product->17
      * */
     public function run()
     {
@@ -141,20 +141,20 @@ class PermissionTableSeeder extends Seeder
                 'route'=>'manufacturer.index'
             ],
             [
-                'name' => 'productcategory-index',
+                'name' => 'product_categories-index',
                 'parent_id' => '2',
                 'display_name' => '商品分類',
                 'description' => '#',
                 'status' => '1',
-                'route'=>'peoductcategories.index'
+                'route'=>'product_categories.index'
             ],
             [
-                'name' => 'productinfo-index',
+                'name' => 'product-index',
                 'parent_id' => '2',
-                'display_name' => '商品分類',
+                'display_name' => '商品資料',
                 'description' => '#',
                 'status' => '1',
-                'route'=>'productinfos.index'
+                'route'=>'product.index'
             ],
             /*第三層*/
             [
@@ -348,6 +348,54 @@ class PermissionTableSeeder extends Seeder
                 'description' => '廠商啟用|禁用',
                 'status' => '1',
                 'route'=>'manufacturer.status'
+            ],
+            [
+                'name' => 'product_categories-create',
+                'parent_id' => '16',
+                'display_name' => '商品類別新增',
+                'description' => '商品類別新增',
+                'status' => '1',
+                'route'=>'product_categories.create'
+            ],
+            [
+                'name' => 'product_categories-edit',
+                'parent_id' => '16',
+                'display_name' => '商品類別修改',
+                'description' => '商品類別修改',
+                'status' => '1',
+                'route'=>'product_categories.edit'
+            ],
+            [
+                'name' => 'product-show',
+                'parent_id' => '17',
+                'display_name' => '商品資料',
+                'description' => '商品資料顯示',
+                'status' => '1',
+                'route'=>'product.create'
+            ],
+            [
+                'name' => 'product-create',
+                'parent_id' => '16',
+                'display_name' => '商品新增',
+                'description' => '商品新增',
+                'status' => '1',
+                'route'=>'product.create'
+            ],
+            [
+                'name' => 'product-edit',
+                'parent_id' => '16',
+                'display_name' => '商品修改',
+                'description' => '商品修改',
+                'status' => '1',
+                'route'=>'product.edit'
+            ],
+            [
+                'name' => 'product-status',
+                'parent_id' => '16',
+                'display_name' => '商品狀態',
+                'description' => '商品上架|下架',
+                'status' => '1',
+                'route'=>'product.status'
             ]
         ];
 

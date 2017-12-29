@@ -50,8 +50,12 @@
                     @endif
                 </td>
                 <td>
+                    @permission('user-show')
                     <a class="btn btn-info" href="{{ route('users.show',$user->user_id) }}">Show</a>
+                    @endpermission
+                    @permission('user-edit')
                     <a class="btn btn-primary" href="{{ route('users.edit',$user->user_id) }}">Edit</a>
+                    @endpermission
                     @permission('user-status')
                     @if($user->user_status == 0)
                         <a class="btn btn-success" href="{{ route('users.status',[1,$user->user_id]) }}">啟用</a>
@@ -59,9 +63,11 @@
                         <a class="btn btn-warning" href="{{ route('users.status',[0,$user->user_id]) }}">禁用</a>
                     @endif
                     @endpermission
+                    @permission('user-delete')
                     {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->user_id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
+                    @endpermission
                 </td>
             </tr>
         @endforeach

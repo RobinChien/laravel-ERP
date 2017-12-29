@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('customer', 'CustomerController');
     Route::resource('manufacturer', 'ManufacturerController');
     Route::resource('commoncode', 'Common_CodeController');
-    Route::resource('productcategory', 'Product_CategoryController');
+    Route::resource('product_categories', 'Product_CategoryController');
     Route::resource('product', 'ProductController');
 });
 
