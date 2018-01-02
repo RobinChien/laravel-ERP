@@ -47,7 +47,10 @@
         <div class="col-xs-12 col-sm-12 col-md-12" id="child_div" style="display:block">
             <div class="form-group">
                 <strong>隸屬類別:</strong>
-                {!! Form::select('category_child', $product_categories, $categories->parent_id, array('class' => 'form-control')) !!}
+                <select name="category_child">
+
+                    @each('product_categories.child_select', $product_categories, 'category')
+                </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">

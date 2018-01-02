@@ -39,7 +39,9 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>商品類別:</strong>
-                {!! Form::select('category_id',  $product_categories, $product->category_id , array('class' => 'form-control')) !!}
+                <select name="category_id">
+                    @each('product_categories.child_select', $product_categories, 'category')
+                </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

@@ -36,7 +36,7 @@
             <div class="form-group">
                 <strong>父類別:</strong>
                 <label>
-{{--                {!! Form::checkbox('category_parent',['onchange'=>'noneDiv(child_div)']) !!}--}}
+                    {{--                {!! Form::checkbox('category_parent',['onchange'=>'noneDiv(child_div)']) !!}--}}
                     <input type="checkbox" id="category_parent" name="category_parent" onclick="ShowHideDiv(this)">
                 </label>
             </div>
@@ -44,7 +44,9 @@
         <div class="col-xs-12 col-sm-12 col-md-12" id="child_div" style="display:block">
             <div class="form-group">
                 <strong>隸屬類別:</strong>
-                {!! Form::select('category_child', $product_categories, [], array('class' => 'form-control')) !!}
+                <select name="category_child">
+                    @each('product_categories.child_select', $product_categories, 'category')
+                </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -58,7 +60,7 @@
     <script type="text/javascript">
         function ShowHideDiv(category_parent) {
             var child_div = document.getElementById("child_div");
-            child_div.style.display = category_parent.checked ? "none":"block";
+            child_div.style.display = category_parent.checked ? "none" : "block";
         }
     </script>
 @endsection

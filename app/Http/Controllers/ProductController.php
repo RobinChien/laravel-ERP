@@ -19,7 +19,6 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = Product::orderBy('id', 'ASC')->paginate(5);
-        $product_category = Product_Category::all();
         return view('product.index', compact('products'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -31,8 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = $this->product_category_tree();
-        $product_categories= array_pluck($categories, 'treeitem','id');
+        $product_categories = $this->getChildCategories();
         $common_code = Common_Code::all();
         $manufacturer = Manufacturer::all();
         return view('product.create', compact('product_categories', 'common_code','manufacturer'));
@@ -75,6 +73,7 @@ class ProductController extends Controller
         {
             $input['product_isitem'] = 0;
         }
+
         Product::create($input);
         return redirect()->route('product.index')
             ->with('success', '商品新增成功');
@@ -88,7 +87,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -100,8 +100,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $product_categories = collect($this->product_category_tree());
-        $product_categories = $product_categories->pluck('treeitem','id')->all();
+        $product_categories = $this->getChildCategories();
         $common_code = Common_Code::all();
         $manufacturer = Manufacturer::all();
 //        dd($categories);
@@ -176,17 +175,20 @@ class ProductController extends Controller
             ->with('success', '狀態更新成功');
     }
 
-    public function product_category_tree()
+    public function getChildCategories($of_id = 0)
     {
-        $product_category = Product_Category::where('parent_id', '=', '#')->get();
-        foreach ($product_category as $key => $value)
-        {
-            $sql = "select * from product_categories as a where FIND_IN_SET(id, getchildlinelist($value->id))";
-            $categories = DB::select(DB::raw($sql));
-            foreach ($categories as $subkey => $subvalue){
-                $pcs[] = ['treeitem'=>$subvalue->category_name, 'id'=>$subvalue->id, 'parent_id'=>$subvalue->parent_id];
-            }
+        $item = [];
+        $categories = Product_Category::where('parent_id', $of_id )->get(['id', 'parent_id', 'category_name']);
+        foreach ( $categories as $category ) {
+            $childs = $this->getChildCategories( $category['id'] );
+//            dd($childs);
+            $item[] = compact( 'category', 'childs' );
         }
-        return $pcs;
+        return $item;
+    }
+
+    public function getBom($of_id)
+    {
+
     }
 }

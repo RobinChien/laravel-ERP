@@ -16,7 +16,8 @@ class Product_CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $product_categories = $this->product_category_tree();
+        $product_categories = $this->getChildCategories();
+//        dd($product_categories);
         return view('product_categories.index', compact('product_categories'));
     }
 
@@ -27,9 +28,7 @@ class Product_CategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->product_category_tree();
-        $product_categories = array_pluck($categories, 'treeitem','id');
-//        dd($product_categories);
+        $product_categories = $this->getChildCategories();
         return view('product_categories.create', compact('product_categories'));
     }
 
@@ -83,9 +82,10 @@ class Product_CategoryController extends Controller
     public function edit($id)
     {
         $categories = Product_Category::find($id);
-        $product_categories = collect($this->product_category_tree());
-        $product_categories = $product_categories->pluck('treeitem','id')->all();
-//        dd($categories);
+        $product_categories = $this->getChildCategories();
+
+//        $product_categories = array_prepend($product_categories, $categories->id, 'parent_id');
+//        dd($product_categories);
         return view('product_categories.edit', compact('categories', 'product_categories'));
     }
 
@@ -132,18 +132,15 @@ class Product_CategoryController extends Controller
         //
     }
 
-    public function product_category_tree()
+    public function getChildCategories($of_id = 0)
     {
-        $product_category = Product_Category::where('parent_id', '=', '#')->get();
-        foreach ($product_category as $key => $value)
-        {
-            $sql = "select * from product_categories where FIND_IN_SET(id, getchildlinelist($value->id))";
-            $categories = DB::select(DB::raw($sql));
-            foreach ($categories as $subkey => $subvalue){
-                $pcs[] = ['treeitem'=>$subvalue->category_name, 'id'=>$subvalue->id, 'parent_id'=>$subvalue->parent_id];
-            }
+        $item = [];
+        $categories = Product_Category::where('parent_id', $of_id )->get(['id', 'parent_id', 'category_name']);
+        foreach ( $categories as $category ) {
+            $childs = $this->getChildCategories( $category['id'] );
+//            dd($childs);
+            $item[] = compact( 'category', 'childs' );
         }
-//        dd($pcs);
-        return $pcs;
+        return $item;
     }
 }
