@@ -18,51 +18,32 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+    <a href="javascript:void(0);" class="btn btn-primary act-button-expand-all "> ＋ Expand All</a>
+    <a href="javascript:void(0);" class="btn btn-primary act-button-collapse-all"> — Collapse All</a></br>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered collaptable">
         <tr class="active">
             <th>Name</th>
             <th>Description</th>
             <th>Status</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($permissions as $key => $permission)
-            @if($permission->parent_id == '#')
-                <tr class="bg-danger">
-                    <td>{{ $permission->treeitem }}</td>
-                    <td>{{ $permission->description }}</td>
-                </tr>
-            @else
-                <tr>
-                    <td>{{ $permission->treeitem }}</td>
-                    <td>{{ $permission->description }}</td>
-                    <td class="text-center">
-                        @if($permission->status == 1)
-                            <span class="text-navy">顯示</span>
-                        @else
-                            <span class="text-dnager">不顯示</span>
-                        @endif
-                    </td>
-                    <td>
-                        @permission('permission-show')
-                        <a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>
-                        @endpermission
-                        @permission('permission-edit')
-                        <a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>
-                        @endpermission
-                        @permission('permission-status')
-                        @if($permission->status == 0)
-                            <a class="btn btn-success"
-                               href="{{ route('permissions.status',[1,$permission->id]) }}">啟用</a>
-                        @else
-                            <a class="btn btn-warning"
-                               href="{{ route('permissions.status',[0,$permission->id]) }}">禁用</a>
-                        @endif
-                        @endpermission
-                    </td>
-                </tr>
-            @endif
-        @endforeach
+        @each('permissions.child', $categories, 'category')
     </table>
-    {{--    {!! $permissions->render() !!}--}}
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+{{--    <script src="{{ asset('js/jquery.min.js') }}"></script>--}}
+
+    <script>
+        $(document).ready(function(){
+            $('.collaptable').aCollapTable({
+                startCollapsed: true,
+                addColumn: false,
+                plusButton: '<span class="i"> ＋ </span>',
+                minusButton: '<span class="i"> — </span>'
+            });
+        });
+    </script>
 @endsection
