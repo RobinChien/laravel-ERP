@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Product_CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,6 @@ class Product_CategoryController extends Controller
     public function index(Request $request)
     {
         $product_categories = $this->product_category_tree();
-//        dd($product_categories);
         return view('product_categories.index', compact('product_categories'));
     }
 
@@ -27,8 +27,8 @@ class Product_CategoryController extends Controller
      */
     public function create()
     {
-        $product_categories = collect($this->product_category_tree());
-        $product_categories = $product_categories->pluck('treeitem','id')->all();
+        $categories = $this->product_category_tree();
+        $product_categories = array_pluck($categories, 'treeitem','id');
 //        dd($product_categories);
         return view('product_categories.create', compact('product_categories'));
     }
@@ -134,21 +134,16 @@ class Product_CategoryController extends Controller
 
     public function product_category_tree()
     {
-        $sql = "SELECT  CONCAT(REPEAT('—', level - 1), category_name) AS treeitem, ho.id, parent_id, level
-                FROM    (
-                        SELECT  product_categories_connect_by_parent_eq_prior_id(id) AS id, @level AS level
-                        FROM    (
-                                SELECT  @start_with := 0,
-                                        @id := @start_with,
-                                        @level := 0
-                                ) vars, product_categories
-                        WHERE   @id IS NOT NULL
-                        ) ho
-                JOIN    product_categories hi
-                ON      hi.id = ho.id";
-        $product_category  = DB::select(DB::raw($sql));
-
-//        dd($product_category);
-        return $product_category;
+        $product_category = Product_Category::where('parent_id', '=', '#')->get();
+        foreach ($product_category as $key => $value)
+        {
+            $sql = "select * from product_categories where FIND_IN_SET(id, getchildlinelist($value->id))";
+            $categories = DB::select(DB::raw($sql));
+            foreach ($categories as $subkey => $subvalue){
+                $pcs[] = ['treeitem'=>$subvalue->category_name, 'id'=>$subvalue->id, 'parent_id'=>$subvalue->parent_id];
+            }
+        }
+//        dd($pcs);
+        return $pcs;
     }
 }

@@ -24,15 +24,15 @@
             <th>商品類別</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($product_categories as $key => $category)
+        @foreach ($product_categories as $category)
                 <tr>
-                    <td>{{ $category->treeitem }}</td>
+                    <td>{{ $category["treeitem"]}}</td>
                     <td>
                         {{--@permission('permission-show')--}}
                         {{--<a class="btn btn-info" href="{{ route('product_categories.show',$category->id) }}">Show</a>--}}
                         {{--@endpermission--}}
-                        @permission('permission-edit')
-                        <a class="btn btn-primary" href="{{ route('product_categories.edit',$category->id) }}">Edit</a>
+                        @permission('product_categories-edit')
+                        <a class="btn btn-primary" href="{{ route('product_categories.edit',$category["id"]) }}">Edit</a>
                         @endpermission
                     </td>
                 </tr>

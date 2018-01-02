@@ -375,7 +375,7 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 'name' => 'product-create',
-                'parent_id' => '16',
+                'parent_id' => '17',
                 'display_name' => '商品新增',
                 'description' => '商品新增',
                 'status' => '1',
@@ -383,7 +383,7 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 'name' => 'product-edit',
-                'parent_id' => '16',
+                'parent_id' => '17',
                 'display_name' => '商品修改',
                 'description' => '商品修改',
                 'status' => '1',
@@ -391,7 +391,7 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 'name' => 'product-status',
-                'parent_id' => '16',
+                'parent_id' => '17',
                 'display_name' => '商品狀態',
                 'description' => '商品上架|下架',
                 'status' => '1',

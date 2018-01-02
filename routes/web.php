@@ -35,5 +35,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('commoncode', 'Common_CodeController');
     Route::resource('product_categories', 'Product_CategoryController');
     Route::resource('product', 'ProductController');
+    Route::get('product/status/{status}/{id}', 'ProductController@status')->name('product.status');
 });
 
