@@ -15,8 +15,8 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = $this->permissions_tree();
-        return view('permissions.index', compact('permissions'));
+        $categories = $this->getChildCategories();
+        return view('permissions.index', compact('categories'));
     }
 
     /**
@@ -114,26 +114,27 @@ class PermissionController extends Controller
             ->with('success', '狀態更新成功');
     }
 
-    /**
-     * @return mixed
-     */
-    public function permissions_tree()
-    {
-        $sql = "SELECT  CONCAT(REPEAT(' ｜', level - 1), display_name) AS treeitem, ho.id, parent_id, description, status, route, level
-                FROM    (
-                        SELECT  permissions_connect_by_parent_eq_prior_id(id) AS id, @level AS level
-                        FROM    (
-                                SELECT  @start_with := 0,
-                                        @id := @start_with,
-                                        @level := 0
-                                ) vars, permissions
-                        WHERE   @id IS NOT NULL
-                        ) ho
-                JOIN    permissions hi
-                ON      hi.id = ho.id";
-        $permissions = DB::select(DB::raw($sql));
 
-//        dd($permissions);
-        return $permissions;
+    /**
+     * 由最上層開始遞迴取得各層分類
+     * @param int $of_id 上層分類id，0 為最上層
+     * @return array
+     */
+    private function getChildCategories( $of_id = 0 )
+    {
+        $item = [];
+        // 取得某一個分類的第一層子分類，並且只取回 id of_id title 欄位
+        // 第一次取得的是最上層
+        // $categories 為 collection
+        $categories = Permission::where( 'parent_id', $of_id )
+            ->get( [ 'id', 'parent_id', 'display_name','description','status' ] );
+        // 遞迴取得所有下層子分類
+        foreach ( $categories as $category ) {
+            $childs = $this->getChildCategories( $category[ 'id' ] );
+            // 某分類及其子分類包成陣列後存入陣列
+            $item[] = compact( 'category', 'childs' );
+        }
+        return $item;
     }
+
 }
