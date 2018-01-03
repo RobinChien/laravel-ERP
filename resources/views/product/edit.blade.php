@@ -65,13 +65,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>商品狀態:</strong>
-                {!! Form::checkbox('product_status', $product->product_status, ($product->product_status == 1) ? true : false, array('class' => 'form-control')) !!}
+                {!! Form::checkbox('product_status', $product->product_status, ($product->product_status == 1) ? true : false) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>是否為成品:</strong>
-                {!! Form::checkbox('product_isitem', $product->product_isitem, ($product->product_isitem == 1) ? true : false, array('class' => 'form-control')) !!}
+                {!! Form::checkbox('product_isitem', $product->product_isitem, ($product->product_isitem == 1) ? true : false) !!}
             </div>
         </div>
 

@@ -156,6 +156,14 @@ class PermissionTableSeeder extends Seeder
                 'status' => '1',
                 'route'=>'product.index'
             ],
+            [
+                'name' => 'commoncode-index',
+                'parent_id' => '2',
+                'display_name' => '通用代碼',
+                'description' => '#',
+                'status' => '1',
+                'route'=>'commoncode.index'
+            ],
             /*第三層*/
             [
                 'name' => 'user-show',
@@ -396,7 +404,31 @@ class PermissionTableSeeder extends Seeder
                 'description' => '商品上架|下架',
                 'status' => '1',
                 'route'=>'product.status'
-            ]
+            ],
+            [
+                'name' => 'commoncode-show',
+                'parent_id' => '18',
+                'display_name' => '通用代碼資料',
+                'description' => '通用代碼顯示',
+                'status' => '1',
+                'route'=>'commoncode.create'
+            ],
+            [
+                'name' => 'commoncode-create',
+                'parent_id' => '18',
+                'display_name' => '通用代碼新增',
+                'description' => '通用代碼新增',
+                'status' => '1',
+                'route'=>'commoncode.create'
+            ],
+            [
+                'name' => 'commoncode-edit',
+                'parent_id' => '18',
+                'display_name' => '通用代碼修改',
+                'description' => '通用代碼修改',
+                'status' => '1',
+                'route'=>'commoncode.edit'
+            ],
         ];
 
         foreach ($permissions as $key => $value) {

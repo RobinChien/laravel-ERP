@@ -31,8 +31,8 @@ class ProductController extends Controller
     public function create()
     {
         $product_categories = $this->getChildCategories();
-        $common_code = Common_Code::all();
-        $manufacturer = Manufacturer::all();
+        $common_code = Common_Code::pluck('code_name', 'id')->all();
+        $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
         return view('product.create', compact('product_categories', 'common_code','manufacturer'));
     }
 
@@ -101,10 +101,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product_categories = $this->getChildCategories();
-        $common_code = Common_Code::all();
-        $manufacturer = Manufacturer::all();
+        $common_code = Common_Code::pluck('code_name', 'id')->all();
+        $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
 //        dd($categories);
-        return view('product_categories.edit', compact('product', 'product_categories', 'common_code', 'manufacturer'));
+        return view('product.edit', compact('product', 'product_categories', 'common_code', 'manufacturer'));
     }
 
     /**
