@@ -19,4 +19,21 @@ class Product extends Model
     {
         return $this->belongsToMany($this, 'bom', 'child_id', 'parent_id');
     }
+
+    public function common_code()
+    {
+        return $this->belongsTo(Common_Code::class, 'common_id');
+    }
+
+    public function product_category()
+    {
+        return $this->belongsTo(Product_Category::class, 'category_id');
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class, 'manufacturer_id');
+    }
+
+
 }
