@@ -7,15 +7,15 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
     <title>ERP - @yield('title', config('app.name', 'Laravel'))</title>
     <meta name="keywords" content="{{ config('app.name', 'Laravel') }}">
     <meta name="description" content="{{ config('app.name', 'Laravel') }}">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.structure.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.theme.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.appendGrid-1.7.1.css') }}" rel="stylesheet">
     <style>
         table, th, td {
             border: 1px solid black;
@@ -23,6 +23,8 @@
     </style>
     @yield('css')
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:auto">
 @inject('menus','App\Services\Menu')
@@ -117,7 +119,8 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/jquery.aCollapTable.js') }}"></script>
-
+<script src="{{ asset('js/jquery.appendGrid-1.7.1.js') }}"></script>
+<script src="{{ asset('js/jquery-ui-1.12.1.min.js') }}"></script>
 @yield('js')
 
 {{--<script>--}}
