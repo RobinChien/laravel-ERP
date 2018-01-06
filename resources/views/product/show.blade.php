@@ -58,12 +58,15 @@
                 @endif
             </div>
         </div>
-        {{--<strong>物料清單</strong>--}}
-        {{--<table>--}}
-            {{--<tr>--}}
-                {{--<td>物料名稱</td>--}}
-            {{--</tr>--}}
-            {{--@each('permissions.child', $categories, 'category')--}}
-        {{--</table>--}}
+        <div class="col-xs-12 col-sm-12 col-md-12">
+        <strong>物料清單</strong>
+        <table>
+            <tr>
+                <td>物料名稱</td>
+                <td>數量</td>
+            </tr>
+            @each('product.child', $product_table, 'product_table')
+        </table>
+        </div>
     </div>
 @endsection
