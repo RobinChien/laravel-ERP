@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $product_categories = $this->getChildCategories();
+        $product_categories = $this->getChildCategories(0);
         $common_code = Common_Code::pluck('code_name', 'id')->all();
         $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
         $product = Product::select('product_name','id', 'product_or_item', 'product_code')->get();
@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $product_table = $this->getChildCategories($id);
+        $product_table = $this->getChildProducts($id);
 //        dd($product_table);
         return view('product.show',compact('product', 'product_table'));
     }
@@ -102,7 +102,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $product_categories = $this->getChildCategories();
+        $product_categories = $this->getChildCategories($id);
         $common_code = Common_Code::pluck('code_name', 'id')->all();
         $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
         $product_table = Product::select('product_name','id', 'product_or_item', 'product_code')->get();
@@ -188,10 +188,22 @@ class ProductController extends Controller
     public function getChildCategories($of_id)
     {
         $item = [];
-        $categories = DB::table('bom')->join('products','id','=','child_id')->where('parent_id', $of_id )->get();
-//        dd($categories);
+        $categories = Product_Category::where( 'parent_id', $of_id )
+            ->get( [ 'id', 'parent_id', 'category_name' ] );
         foreach ( $categories as $category ) {
             $childs = $this->getChildCategories( $category->child_id );
+//            dd($childs);
+            $item[] = compact( 'category', 'childs' );
+        }
+        return $item;
+    }
+
+    public function getChildProducts($of_id)
+    {
+        $item = [];
+        $categories = DB::table('bom')->join('products','id','=','child_id')->where('parent_id', $of_id )->get();
+        foreach ( $categories as $category ) {
+            $childs = $this->getChildProducts( $category->child_id );
 //            dd($childs);
             $item[] = compact( 'category', 'childs' );
         }
