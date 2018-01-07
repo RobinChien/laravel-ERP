@@ -13,7 +13,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'category_id' => $category_id->random(),
         'product_price' => $faker->numberBetween($min = 1, $max = 1000),
         'product_status' => $faker->boolean,
-        'product_isitem' => $faker->boolean,
+        'product_or_item' => $faker->numberBetween($min = 0, $max = 2),
         'manufacturer_id' => $manufacturer_id->random(),
 
     ];
