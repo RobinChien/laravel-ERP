@@ -102,12 +102,13 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $product_categories = $this->getChildCategories($id);
+        $product_categories = $this->getChildCategories(0);
+//        dd($product_categories);
         $common_code = Common_Code::pluck('code_name', 'id')->all();
         $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
         $product_table = Product::select('product_name','id', 'product_or_item', 'product_code')->get();
         $item = DB::table('bom')->join('products','id','=','child_id')->where('parent_id',$id)->get();
-//        dd($item);
+//        dd($product_table);
         return view('product.edit', compact('product', 'product_categories', 'common_code', 'manufacturer', 'product_table', 'item'));
     }
 
@@ -120,6 +121,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         $request->validate([
             'product_code' => 'required|string|max:10',
             'product_name' => 'required|string|max:150',
@@ -151,8 +153,10 @@ class ProductController extends Controller
             $input['product_isitem'] = 0;
         }
         $product = Product::find($id);
+//        dd($product);
         $product->update($input);
-        if($request->input('product_or_item')!=2){
+        if(($request->input('product_or_item')-1)!=2){
+//            dd($request->input('data'));
             foreach ($request->input('data') as $key => $value){
                 $product->bom()->attach($value['product_name'],array("qty"=>$value['qty']));
             }
