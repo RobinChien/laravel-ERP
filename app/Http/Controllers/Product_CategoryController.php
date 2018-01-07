@@ -83,7 +83,7 @@ class Product_CategoryController extends Controller
     {
         $categories = Product_Category::find($id);
         $product_categories = $this->getChildCategories();
-
+dd($product_categories);
 //        $product_categories = array_prepend($product_categories, $categories->id, 'parent_id');
 //        dd($product_categories);
         return view('product_categories.edit', compact('categories', 'product_categories'));

@@ -33,7 +33,8 @@ class ProductController extends Controller
         $product_categories = $this->getChildCategories();
         $common_code = Common_Code::pluck('code_name', 'id')->all();
         $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
-        return view('product.create', compact('product_categories', 'common_code','manufacturer'));
+        $product = Product::select('product_name','id', 'product_or_item', 'product_code')->get();
+        return view('product.create', compact('product_categories', 'common_code','manufacturer', 'product'));
     }
 
     /**
@@ -45,18 +46,19 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_code' => 'required|string|max:10',
+            'product_code' => 'required|string|max:10|unique:products',
             'product_name' => 'required|string|max:150',
             'category_id' => 'required',
             'product_price' => 'required',
             'common_id' => 'required',
             'manufacturer_id' => 'required',
             'product_status' => 'sometimes',
-            'product_isitem' => 'sometimes',
+            'product_or_item' => 'required',
+            'data' => 'sometimes',
         ]);
 
-        $input = $request->all();
-        if (isset($request['product_status']))
+        $input = $request->except('data');
+        if ($request['product_status'] == 1)
         {
             $input['product_status'] = 1;
         }
@@ -65,18 +67,16 @@ class ProductController extends Controller
             $input['product_status'] = 0;
         }
 
-        if (isset($request['product_isitem']))
-        {
-            $input['product_isitem'] = 1;
+        $product = Product::create($input);
+//        dd($request->input('data')[0]['qty']);
+        if($request->input('product_or_item')!=2) {
+            foreach ($request->input('data') as $key => $value) {
+                $product->bom()->attach($value['product_name'], array("qty" => $value['qty']));
+            }
         }
-        else
-        {
-            $input['product_isitem'] = 0;
-        }
-
-        Product::create($input);
-        return redirect()->route('product.index')
-            ->with('success', '商品新增成功');
+//        return redirect()->route('product.index')
+//            ->with('success', '商品新增成功');
+        return json_encode($msg[0]="success");
     }
 
     /**
@@ -88,7 +88,9 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('product.show', compact('product'));
+        $product_table = $this->getChildCategories($id);
+//        dd($product_table);
+        return view('product.show',compact('product', 'product_table'));
     }
 
     /**
@@ -103,8 +105,10 @@ class ProductController extends Controller
         $product_categories = $this->getChildCategories();
         $common_code = Common_Code::pluck('code_name', 'id')->all();
         $manufacturer = Manufacturer::pluck('manufacturer_name', 'id')->all();
-//        dd($categories);
-        return view('product.edit', compact('product', 'product_categories', 'common_code', 'manufacturer'));
+        $product_table = Product::select('product_name','id', 'product_or_item', 'product_code')->get();
+        $item = DB::table('bom')->join('products','id','=','child_id')->where('parent_id',$id)->get();
+//        dd($item);
+        return view('product.edit', compact('product', 'product_categories', 'common_code', 'manufacturer', 'product_table', 'item'));
     }
 
     /**
@@ -124,10 +128,11 @@ class ProductController extends Controller
             'common_id' => 'required',
             'manufacturer_id' => 'required',
             'product_status' => 'sometimes',
-            'product_isitem' => 'sometimes',
+            'product_or_item' => 'required',
+            'data' => 'sometimes',
         ]);
 
-        $input = $request->all();
+        $input = $request->except('data');
         if (isset($request['product_status']))
         {
             $input['product_status'] = 1;
@@ -147,6 +152,11 @@ class ProductController extends Controller
         }
         $product = Product::find($id);
         $product->update($input);
+        if($request->input('product_or_item')!=2){
+            foreach ($request->input('data') as $key => $value){
+                $product->bom()->attach($value['product_name'],array("qty"=>$value['qty']));
+            }
+        }
 
         return redirect()->route('product.index')
             ->with('success', '商品成功');
@@ -175,20 +185,17 @@ class ProductController extends Controller
             ->with('success', '狀態更新成功');
     }
 
-    public function getChildCategories($of_id = 0)
+    public function getChildCategories($of_id)
     {
         $item = [];
-        $categories = Product_Category::where('parent_id', $of_id )->get(['id', 'parent_id', 'category_name']);
+        $categories = DB::table('bom')->join('products','id','=','child_id')->where('parent_id', $of_id )->get();
+//        dd($categories);
         foreach ( $categories as $category ) {
-            $childs = $this->getChildCategories( $category['id'] );
+            $childs = $this->getChildCategories( $category->child_id );
 //            dd($childs);
             $item[] = compact( 'category', 'childs' );
         }
         return $item;
     }
-
-    public function getBom($of_id)
-    {
-
-    }
+    
 }

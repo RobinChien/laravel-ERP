@@ -36,7 +36,6 @@
             <div class="form-group">
                 <strong>父類別:</strong>
                 <label>
-                    {{--                {!! Form::checkbox('category_parent',['onchange'=>'noneDiv(child_div)']) !!}--}}
                     <input type="checkbox" id="category_parent" name="category_parent" onclick="ShowHideDiv(this)">
                 </label>
             </div>

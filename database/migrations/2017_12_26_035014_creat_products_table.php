@@ -21,7 +21,7 @@ class CreatProductsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->string('product_price');
             $table->boolean('product_status');
-            $table->boolean('product_isitem'); //is product or item
+            $table->integer('product_or_item'); //成品=>0 半成品=>1 原料=>2
             $table->integer('manufacturer_id')->unsigned();
             $table->foreign('common_id')->references('id')->on('common_codes')
                 ->onUpdate('cascade')->onDelete('cascade');
@@ -35,7 +35,7 @@ class CreatProductsTable extends Migration
         Schema::create('bom', function (Blueprint $table){
             $table->integer('parent_id')->unsigned();
             $table->integer('child_id')->unsigned();
-
+            $table->integer('qty');
             $table->foreign('parent_id')->references('id')->on('products')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('child_id')->references('id')->on('products')

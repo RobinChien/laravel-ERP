@@ -6,19 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected  $table = 'products';
     protected $fillable = [
-        'product_code', 'product_name','common_id','category_id','product_price','product_status','product_isitem','manufacturer_id',
+        'product_code', 'product_name','common_id','category_id','product_price','product_status','product_or_item','manufacturer_id',
     ];
 
-    public function bom_parent()
+    public function bom()
     {
-        return $this->belongsToMany($this, 'bom', 'parent_id', 'child_id');
+        return $this->belongsToMany($this, 'bom', 'parent_id', 'child_id')->withPivot(['qty']);
     }
 
-    public function bom_child()
+    public function bomRecursive()
     {
-        return $this->belongsToMany($this, 'bom', 'child_id', 'parent_id');
+        return $this->bom()->with('bomRecursive');
     }
+//    public function bom_parent()
+//    {
+//        return $this->belongsToMany($this, 'bom', 'parent_id', 'child_id');
+//    }
+
+//    public function bom_child()
+//    {
+//        return $this->belongsToMany($this, 'bom', 'child_id', 'parent_id')->withPivot(['qty']);;
+//    }
 
     public function common_code()
     {
