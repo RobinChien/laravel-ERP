@@ -36,12 +36,16 @@
                     <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
                     @endpermission
                     @permission('role-edit')
-                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                    @if($role->id != 1)
+                        <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                    @endif
                     @endpermission
                     @permission('role-delete')
+                    @if($role->id != 1)
                     {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
+                    @endif
                     @endpermission
                 </td>
             </tr>

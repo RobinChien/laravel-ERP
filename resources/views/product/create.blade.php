@@ -71,7 +71,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>商品定位:</strong>
-                {!! Form::select('product_or_item',['成品','半成品','原料'], [], array('class' => 'form-control', 'id' => 'product_or_item')) !!}
+                {!! Form::select('product_or_item',['成品','半成品','原料'], [], array('class' => 'form-control', 'id' => 'product_or_item', 'onchange'=>'ShowHideDiv(this)')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -101,7 +101,7 @@
                         name: 'product_or_item',
                         display: '商品定位',
                         type: 'select',
-                        ctrlOptions: {0:'{Choose}', 1: '成品', 2: '半成品', 3: '原料'},
+                        ctrlOptions: {0: '{Choose}', 1: '成品', 2: '半成品', 3: '原料'},
                         onChange: handleCascadeChange
                     },
                     {
@@ -118,8 +118,7 @@
                         ctrlAttr: {maxlength: 10},
                         ctrlCss: {width: '50px', 'text-align': 'right'},
                         value: 0
-                    },
-                    {name: 'RecordId', type: 'hidden', value: 0}
+                    }
                 ],
                 rowDataLoaded: function (caller, record, rowIndex, uniqueIndex) {
                     if (0 < record.product_or_item) {
@@ -178,7 +177,7 @@
             var product = <?php echo json_encode($product); ?>;
             if (0 < product_or_item.selectedIndex) {
                 for (var i = 0; i < product.length; i++) {
-                    if(product[i].product_or_item == (product_or_item.selectedIndex)-1){
+                    if (product[i].product_or_item == (product_or_item.selectedIndex) - 1) {
                         product_name.options[i] = new Option(product[i].product_code + ' ' + product[i].product_name, product[i].id);
                     }
                 }
@@ -186,6 +185,11 @@
             } else {
                 product_name.disabled = true;
             }
+        }
+
+        function ShowHideDiv() {
+            var tblAppendGrid = document.getElementById("tblAppendGrid");
+            tblAppendGrid.style.display = ($('#product_or_item').val() != 2) ? "block" : "none";
         }
     </script>
 @endsection

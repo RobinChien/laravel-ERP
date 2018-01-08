@@ -32,6 +32,18 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>商品定位:</strong>
+                @if($product->product_or_item == 0 )
+                    成品
+                @elseif($product->product_or_item == 1)
+                    半成品
+                @else
+                    原料
+                @endif
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>商品價格:</strong>
                 {{$product->product_price}}
             </div>

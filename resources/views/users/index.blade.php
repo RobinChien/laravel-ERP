@@ -54,7 +54,9 @@
                     <a class="btn btn-info" href="{{ route('users.show',$user->user_id) }}">Show</a>
                     @endpermission
                     @permission('user-edit')
-                    <a class="btn btn-primary" href="{{ route('users.edit',$user->user_id) }}">Edit</a>
+                    @if($user->user_id != 1)
+                        <a class="btn btn-primary" href="{{ route('users.edit',$user->user_id) }}">Edit</a>
+                    @endif
                     @endpermission
                     @permission('user-status')
                     @if($user->user_status == 0)
