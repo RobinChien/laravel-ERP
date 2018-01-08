@@ -106,6 +106,12 @@ class Purchases_ReturnController extends Controller
             PurchaseDetail::create($detail);
             $i++;
 
+            $stock = Product::find($detail['product_id']);
+
+            $stock->product_stock =$stock->product_stock-$detail['purchase_qty'];
+
+            $stock->save();
+
         }
         return redirect()->route('purchase_return.index')
             ->with('success', '單號：'.$input['purchases_no'].' 新增成功');
