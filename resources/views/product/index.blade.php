@@ -24,6 +24,9 @@
             <th>No</th>
             <th>編號</th>
             <th>名稱</th>
+            <th>價格</th>
+            <th>供應商</th>
+            <th>庫存</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($products as $key => $product)
@@ -31,6 +34,9 @@
                 <td>{{ ++$i }}</td>
                 <td>{{ $product->product_code }}</td>
                 <td>{{ $product->product_name }}</td>
+                <td>{{ $product->product_price }}</td>
+                <td>{{ $product->manufacturer->manufacturer_name }}</td>
+                <td>{{ $product->product_stock }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('product.show',$product->id) }}">Show</a>
                     @permission('product-edit')

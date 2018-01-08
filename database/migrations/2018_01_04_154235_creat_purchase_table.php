@@ -18,7 +18,7 @@ class CreatPurchaseTable extends Migration
             $table->string('purchases_no',15)->unique();
             $table->integer('manufacturer_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('purchases_type');
+            $table->boolean('purchases_type');
             $table->foreign('user_id')->references('user_id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('manufacturer_id')->references('id')->on('manufacturers')

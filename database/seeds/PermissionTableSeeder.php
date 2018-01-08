@@ -164,6 +164,23 @@ class PermissionTableSeeder extends Seeder
                 'status' => '1',
                 'route'=>'commoncode.index'
             ],
+            [
+                'name' => 'purchase-index',
+                'parent_id' => '3',
+                'display_name' => '進貨維護',
+                'description' => '#',
+                'status' => '1',
+                'route'=>'purchase.index'
+            ],
+            [
+                'name' => 'purchase_return-index',
+                'parent_id' => '3',
+                'display_name' => '退貨維護',
+                'description' => '#',
+                'status' => '1',
+                'route'=>'purchase_return.index'
+            ],
+
             /*第三層*/
             [
                 'name' => 'user-show',

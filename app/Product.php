@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected  $table = 'products';
     protected $fillable = [
-        'product_code', 'product_name','common_id','category_id','product_price','product_status','product_or_item','manufacturer_id',
+        'product_code', 'product_name','common_id','category_id','product_price','product_status','product_or_item','manufacturer_id','product_stock'
     ];
 
     public function bom()
