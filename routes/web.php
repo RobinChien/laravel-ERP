@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('purchase/manufacturer', 'PurchaseController@manufacturer')->name('purchase.manufacturer');
     Route::resource('purchase_return', 'Purchases_ReturnController');
     Route::post('purchase_return/manufacturer', 'Purchases_ReturnController@manufacturer')->name('purchase_return.manufacturer');
+    Route::resource('sale', 'SaleController');
+    Route::resource('sale_return', 'Sale_ReturnController');
+
 
 
 });

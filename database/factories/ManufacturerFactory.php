@@ -14,6 +14,5 @@ $factory->define(App\Manufacturer::class, function (Faker $faker) {
         'manufacturer_liaison' => $faker->name,
         'manufacturer_address' => $faker->address,
         'manufacturer_GUInumber' => $faker->randomNumber(),
-        'manufacturer_ZipCode' => $faker->postcode,
     ];
 });

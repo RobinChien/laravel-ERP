@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PurchaseDetail extends Model
+class Sale_details extends Model
 {
-    protected $table = 'purchase_detail';
+    //
+    protected $table = 'sale_details';
 
 
     protected $fillable = [
@@ -18,7 +19,6 @@ class PurchaseDetail extends Model
     }
     public function sales()
     {
-        return $this->belongsTo(Purchase::class, 'sale_id');
+        return $this->belongsTo(Sales::class, 'sale_id');
     }
-    //
 }

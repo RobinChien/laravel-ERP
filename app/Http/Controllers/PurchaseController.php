@@ -108,7 +108,7 @@ class PurchaseController extends Controller
 
             $stock = Product::find($detail['product_id']);
 
-            $stock->product_stock =$detail['purchase_qty'];
+            $stock->product_stock =$stock->product_stock+$detail['purchase_qty'];
 
             $stock->save();
 
