@@ -36,5 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('product_categories', 'Product_CategoryController');
     Route::resource('product', 'ProductController');
     Route::get('product/status/{status}/{id}', 'ProductController@status')->name('product.status');
+    Route::resource('purchase', 'PurchaseController');
+    Route::post('purchase/manufacturer', 'PurchaseController@manufacturer')->name('purchase.manufacturer');
+
 });
 
