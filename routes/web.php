@@ -38,6 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('product/status/{status}/{id}', 'ProductController@status')->name('product.status');
     Route::resource('purchase', 'PurchaseController');
     Route::post('purchase/manufacturer', 'PurchaseController@manufacturer')->name('purchase.manufacturer');
+    Route::resource('purchase_return', 'Purchases_ReturnController');
+    Route::post('purchase_return/manufacturer', 'Purchases_ReturnController@manufacturer')->name('purchase_return.manufacturer');
+
 
 });
 

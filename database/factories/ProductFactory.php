@@ -15,6 +15,6 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'product_status' => $faker->boolean,
         'product_or_item' => $faker->numberBetween($min = 0, $max = 2),
         'manufacturer_id' => $manufacturer_id->random(),
-
+        'product_stock'=>0
     ];
 });

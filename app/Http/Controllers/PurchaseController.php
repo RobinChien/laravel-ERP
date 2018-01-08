@@ -20,7 +20,7 @@ class PurchaseController extends Controller
     {
         //
 
-        $purchases = Purchase::orderBy('id', 'ASC')->paginate(5);
+        $purchases = Purchase::where('purchases_type',0)->orderBy('id', 'ASC')->paginate(5);
         return view('purchase.index', compact('purchases'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -72,23 +72,23 @@ class PurchaseController extends Controller
             'price' => 'required|array|min:1',
             'price.*' => 'required|numeric|min:1',
         ]);
-        $purchase=Purchase::orderBy('id', 'DESC')->first();
+        $purchase=Purchase::where('purchases_type',0)->orderBy('id', 'DESC')->first();
 //        dd($purchase);
         if($purchase==null){
             $purchase=1;
         }else{
 
-            $purchase=(int)(substr($purchase->purchases_no,-7));
+            $purchase=(int)(substr($purchase->purchases_no,-6));
 //            dd($purchase);
 
             $purchase++;
         }
-        $purchase=str_pad($purchase,7,'0',STR_PAD_LEFT);;
+        $purchase=str_pad($purchase,6,'0',STR_PAD_LEFT);;
 
-        $input['purchases_no']=date("Ymd").$purchase;
+        $input['purchases_no']="0".date("Ymd").$purchase;
         $input['manufacturer_id']=$request['manufacturer_id'];
         $input['user_id']=Auth::user()->user_id;
-        $input['purchases_type']=1;
+        $input['purchases_type']=0;
 
 //        dd($input);
         $purchase_id=Purchase::create($input)->id;
@@ -105,6 +105,12 @@ class PurchaseController extends Controller
 //            dd($detail);
             PurchaseDetail::create($detail);
             $i++;
+
+            $stock = Product::find($detail['product_id']);
+
+            $stock->product_stock =$detail['purchase_qty'];
+
+            $stock->save();
 
         }
         return redirect()->route('purchase.index')

@@ -23,6 +23,7 @@ class CreatProductsTable extends Migration
             $table->boolean('product_status');
             $table->integer('product_or_item'); //成品=>0 半成品=>1 原料=>2
             $table->integer('manufacturer_id')->unsigned();
+            $table->integer('product_stock');
             $table->foreign('common_id')->references('id')->on('common_codes')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('product_categories')
