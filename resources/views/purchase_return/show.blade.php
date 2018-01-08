@@ -7,7 +7,7 @@
                 <h2>進貨退出資料</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('purchase.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('purchase_return.index') }}"> Back</a>
             </div>
         </div>
     </div>

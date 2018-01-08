@@ -50,7 +50,7 @@
                     <th width="100px">No</th>
                     <th>商品</th>
                     <th>數量</th>
-                    <th>定價</th>
+                    {{--<th>定價</th>--}}
                     <th>售價</th>
                     <th>小計</th>
                     <th width="280px">Action</th>
@@ -64,9 +64,9 @@
                     <td>
                         {!! Form::number('qty[]', null, array('placeholder' => '0','class' => 'form-control qty','min'=>0)) !!}
                     </td>
-                    <td>
-                        {!! Form::text('product_price', 0, array('placeholder' => '','class' => 'form-control', 'disabled' => true)) !!}
-                    </td>
+                    {{--<td>--}}
+{{--                        {!! Form::text('product_price', 0, array('placeholder' => '','class' => 'form-control', 'disabled' => true)) !!}--}}
+                    {{--</td>--}}
                     <td>
                         {!! Form::number('price[]', null, array('placeholder' => '0','class' => 'form-control price','min'=>0)) !!}
                     </td>
@@ -89,9 +89,9 @@
                     <td>
                         {!! Form::number('qty[]', 1, array('placeholder' => '0','class' => 'form-control qty','min'=>0)) !!}
                     </td>
-                    <td>
-                        {!! Form::text('product_price', 0, array('placeholder' => '','class' => 'form-control', 'disabled' => true)) !!}
-                    </td>
+                    {{--<td>--}}
+{{--                        {!! Form::text('product_price', 0, array('placeholder' => '','class' => 'form-control', 'disabled' => true)) !!}--}}
+                    {{--</td>--}}
                     <td>
                         {!! Form::number('price[]', 1, array('placeholder' => '0','class' => 'form-control price','min'=>0)) !!}
                     </td>

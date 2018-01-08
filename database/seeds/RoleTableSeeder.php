@@ -34,9 +34,9 @@ class RoleTableSeeder extends Seeder
         $permission_company_index = Permission::where('name', 'company-index')->first();
         $permission_company_show = Permission::where('name', 'company-show')->first();
         $permission_company_edit = Permission::where('name', 'company-edit')->first();
-        $permission_employee_index = Permission::where('name', 'employee-index')->first();
-        $permission_employee_show = Permission::where('name', 'employee-show')->first();
-        $permission_employee_edit = Permission::where('name', 'employee-edit')->first();
+//        $permission_employee_index = Permission::where('name', 'employee-index')->first();
+//        $permission_employee_show = Permission::where('name', 'employee-show')->first();
+//        $permission_employee_edit = Permission::where('name', 'employee-edit')->first();
         $permission_customer_index = Permission::where('name', 'customer-index')->first();
         $permission_customer_show = Permission::where('name', 'customer-show')->first();
         $permission_customer_create = Permission::where('name', 'customer-create')->first();
@@ -59,6 +59,15 @@ class RoleTableSeeder extends Seeder
         $permission_commoncode_show = Permission::where('name', 'commoncode-show')->first();
         $permission_commoncode_create = Permission::where('name', 'commoncode-create')->first();
         $permission_commoncode_edit = Permission::where('name', 'commoncode-edit')->first();
+
+        $permission_s03 = Permission::where('name', 's03')->first();
+        $permission_purchase_index = Permission::where('name', 'purchase-index')->first();
+        $permission_purchase_return_index = Permission::where('name', 'purchase_return-index')->first();
+
+        $permission_s04 = Permission::where('name', 's04')->first();
+        $permission_sale_index = Permission::where('name', 'sale-index')->first();
+        $permission_sale_return_index = Permission::where('name', 'sale_return-index')->first();
+
 
 
         $admin = new Role();
@@ -86,9 +95,9 @@ class RoleTableSeeder extends Seeder
         $admin->permissions()->attach($permission_company_index);
         $admin->permissions()->attach($permission_customer_show);
         $admin->permissions()->attach($permission_company_edit);
-        $admin->permissions()->attach($permission_employee_index);
-        $admin->permissions()->attach($permission_employee_show);
-        $admin->permissions()->attach($permission_employee_edit);
+//        $admin->permissions()->attach($permission_employee_index);
+//        $admin->permissions()->attach($permission_employee_show);
+//        $admin->permissions()->attach($permission_employee_edit);
         $admin->permissions()->attach($permission_customer_index);
         $admin->permissions()->attach($permission_customer_create);
         $admin->permissions()->attach($permission_customer_edit);
@@ -111,6 +120,12 @@ class RoleTableSeeder extends Seeder
         $admin->permissions()->attach($permission_commoncode_show);
         $admin->permissions()->attach($permission_commoncode_create);
         $admin->permissions()->attach($permission_commoncode_edit);
+        $admin->permissions()->attach($permission_s03);
+        $admin->permissions()->attach($permission_purchase_index);
+        $admin->permissions()->attach($permission_purchase_return_index);
+        $admin->permissions()->attach($permission_s04);
+        $admin->permissions()->attach($permission_sale_index);
+        $admin->permissions()->attach($permission_sale_return_index);
 
         $shop_keeper = new Role();
         $shop_keeper->name = 'shop-keeper';

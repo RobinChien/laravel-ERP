@@ -10,15 +10,15 @@ class PurchaseDetail extends Model
 
 
     protected $fillable = [
-        'sale_id','sale_detail_no','product_id','sale_qty','sale_price'
+        'purchase_id','purchase_detail_no','product_id','purchase_qty','purchase_price'
     ];
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
-    public function sales()
+    public function purchase()
     {
-        return $this->belongsTo(Purchase::class, 'sale_id');
+        return $this->belongsTo(Purchase::class, 'purchase_id');
     }
     //
 }
