@@ -38,15 +38,15 @@ class RoleTableSeeder extends Seeder
         $permission_employee_show = Permission::where('name', 'employee-show')->first();
         $permission_employee_edit = Permission::where('name', 'employee-edit')->first();
         $permission_customer_index = Permission::where('name', 'customer-index')->first();
-        $permission_customer_show = Permission::where('name', 'company-show')->first();
-        $permission_customer_create = Permission::where('name', 'company-edit')->first();
-        $permission_customer_edit = Permission::where('name', 'employee-show')->first();
-        $permission_customer_status = Permission::where('name', 'employee-edit')->first();
+        $permission_customer_show = Permission::where('name', 'customer-show')->first();
+        $permission_customer_create = Permission::where('name', 'customer-create')->first();
+        $permission_customer_edit = Permission::where('name', 'customer-edit')->first();
+        $permission_customer_status = Permission::where('name', 'customer-status')->first();
         $permission_manufacturer_index = Permission::where('name', 'manufacturer-index')->first();
-        $permission_manufacturer_show = Permission::where('name', 'company-show')->first();
-        $permission_manufacturer_create = Permission::where('name', 'company-edit')->first();
-        $permission_manufacturer_edit = Permission::where('name', 'employee-show')->first();
-        $permission_manufacturer_status = Permission::where('name', 'employee-edit')->first();
+        $permission_manufacturer_show = Permission::where('name', 'manufacturer-show')->first();
+        $permission_manufacturer_create = Permission::where('name', 'manufacturer-create')->first();
+        $permission_manufacturer_edit = Permission::where('name', 'manufacturer-edit')->first();
+        $permission_manufacturer_status = Permission::where('name', 'manufacturer-status')->first();
         $permission_product_categories_index = Permission::where('name', 'product_categories-index')->first();
         $permission_product_categories_create = Permission::where('name', 'product_categories-create')->first();
         $permission_product_categories_edit = Permission::where('name', 'product_categories-edit')->first();
@@ -58,7 +58,7 @@ class RoleTableSeeder extends Seeder
         $permission_commoncode_index = Permission::where('name', 'commoncode-index')->first();
         $permission_commoncode_show = Permission::where('name', 'commoncode-show')->first();
         $permission_commoncode_create = Permission::where('name', 'commoncode-create')->first();
-        $permission_commoncode_edit = Permission::where('name', 'product-edit')->first();
+        $permission_commoncode_edit = Permission::where('name', 'commoncode-edit')->first();
 
 
         $admin = new Role();
@@ -94,7 +94,6 @@ class RoleTableSeeder extends Seeder
         $admin->permissions()->attach($permission_customer_edit);
         $admin->permissions()->attach($permission_customer_status);
         $admin->permissions()->attach($permission_company_show);
-        $admin->permissions()->attach($permission_company_edit);
         $admin->permissions()->attach($permission_manufacturer_index);
         $admin->permissions()->attach($permission_manufacturer_edit);
         $admin->permissions()->attach($permission_manufacturer_status);
